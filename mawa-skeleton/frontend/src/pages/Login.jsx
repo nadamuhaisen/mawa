@@ -1,7 +1,7 @@
 // login page:
 import {useState} from "react";
-import {useNavigate } from "react";
-import {loginRequest } from "react";
+import { useNavigate } from 'react-router-dom'// مكتبة جاهزة  بتخلينا نوجه المستخدم من صفحة ل صفحة حسب دوره 
+import { loginRequest } from '../services/authService.js' // بترسل بيانات الدخول للسيرفر "الباك"
 
 export default function Login(){
 //بناء الstates
