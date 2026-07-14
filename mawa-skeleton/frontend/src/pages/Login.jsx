@@ -3,7 +3,7 @@ import {useState} from "react";
 import { useNavigate } from 'react-router-dom'// مكتبة جاهزة  بتخلينا نوجه المستخدم من صفحة ل صفحة حسب دوره 
 import { loginRequest } from '../services/authService.js' // بترسل بيانات الدخول للسيرفر "الباك"
 
-export default function Login(){
+export default function Login() {
 //بناء الstates
 const [phone , setPhone] = useState("");
 const [password , setPassword] = useState("");
@@ -16,14 +16,12 @@ const navigate = useNavigate();
 
 async function handleSubmit(e) {
     e.preventDefault();
-}
-
-setError ("")
-setLoading(true)
+    setError ("")
+    setLoading(true)
 
 try{
     //عشان نبعت الداتا للباك
-    const user = await loginRequest({phone , passwird} , role);
+    const user = await loginRequest({ phone, password }, role);
     // لو كلو صح بيوجه المستخدم حسب دوره 
     navigate (`/dashboard/${user.role}`)
 }catch(err){
@@ -32,7 +30,7 @@ try{
 finally{
     setLoading(false);
 }
-
+}
 
 return(
      <form onSubmit={handleSubmit}>
