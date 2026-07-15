@@ -1,0 +1,11 @@
+.tatreez {
+  width: 100%;
+  height: 16px;
+  overflow: hidden;
+  opacity: 0.5;
+}
+
+.tatreez__svg {
+  width: 100%;
+  height: 100%;
+}
