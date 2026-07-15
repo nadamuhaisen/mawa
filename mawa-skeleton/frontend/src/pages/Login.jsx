@@ -1,7 +1,7 @@
 // login page:
 import {useState} from "react";
 import { useNavigate } from 'react-router-dom'// مكتبة جاهزة  بتخلينا نوجه المستخدم من صفحة ل صفحة حسب دوره 
-import { loginRequest } from '../services/authService.js' // بترسل بيانات الدخول للسيرفر "الباك"
+import { useAuth } from '../context/AuthContext.jsx';
 
 export default function Login() {
 //بناء الstates
@@ -13,16 +13,16 @@ const [loading , setLoading] = useState(false);
 
 
 const navigate = useNavigate();
-
+ const { login } = useAuth(); 
 async function handleSubmit(e) {
     e.preventDefault();
     setError ("")
     setLoading(true)
 
 try{
-    //عشان نبعت الداتا للباك
-    const user = await loginRequest({ phone, password }, role);
+      //عشان نبعت الداتا للباك
     // لو كلو صح بيوجه المستخدم حسب دوره 
+   const user = await login({ phone, password }, role);
     navigate (`/dashboard/${user.role}`)
 }catch(err){
     setError("رقم الهاتف او كلمة المرور خاطئة ")
