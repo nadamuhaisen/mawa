@@ -1,50 +1,17 @@
-// نسخة مؤقتة (Mock) - بترجع بيانات وهمية بدل ما تتصل بسيرفر حقيقي
-// لما يخلص الباك إند، منرجع نحط النسخة الحقيقية يلي فيها axios
-
-// بمحاكي تأخير الشبكة الحقيقي (نص ثانية) عشان تجربي شكل الـ loading كمان
-function fakeDelay(ms = 500) {
-  return new Promise((resolve) => setTimeout(resolve, ms))
-}
-
-export async function signupRequest(form) {
-  await fakeDelay()
-
-  // بمحاكي خطأ لو الهاتف يساوي رقم معيّن، عشان تجربي حالة الفشل كمان
-  if (form.phone === '0590000000') {
-    throw new Error('رقم الهاتف مسجّل مسبقاً')
-  }
-
-  const fakeUser = {
-    id: 'fake-id-123',
-    name: form.name,
-    phone: form.phone,
-    role: form.role, // بترجع نفس الدور يلي اخترتيه (renter أو owner)
-  }
-
-  localStorage.setItem('mawa_token', 'fake-token-123')
-  localStorage.setItem('mawa_user', JSON.stringify(fakeUser))
-
-  return fakeUser
-}
+import api from './api.js'
 
 export async function loginRequest(credentials, role) {
-  await fakeDelay()
+  const { data } = await api.post('/auth/login', { ...credentials, role })
+  localStorage.setItem('mawa_token', data.token)
+  localStorage.setItem('mawa_user', JSON.stringify(data.user))
+  return data.user
+}
 
-  if (credentials.password.length < 6) {
-    throw new Error('كلمة المرور غير صحيحة')
-  }
-
-  const fakeUser = {
-    id: 'fake-id-123',
-    name: 'مستخدم تجريبي',
-    phone: credentials.phone,
-    role,
-  }
-
-  localStorage.setItem('mawa_token', 'fake-token-123')
-  localStorage.setItem('mawa_user', JSON.stringify(fakeUser))
-
-  return fakeUser
+export async function signupRequest(payload) {
+  const { data } = await api.post('/auth/signup', payload)
+  localStorage.setItem('mawa_token', data.token)
+  localStorage.setItem('mawa_user', JSON.stringify(data.user))
+  return data.user
 }
 
 export function logoutRequest() {

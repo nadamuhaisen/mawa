@@ -14,7 +14,7 @@ export default function OwnerDashboard(){
     useEffect (()=>{
         async function loadDashboardData (){
             try {
-                const [myListings , myRequsts] = await Promise.all([
+                const [myListings , myRequests] = await Promise.all([
                     getMyListings(),
                     getRequestsForMyListings()
                 ]); 
