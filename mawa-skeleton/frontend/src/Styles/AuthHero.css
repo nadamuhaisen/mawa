@@ -1,0 +1,32 @@
+.auth-hero {
+  text-align: center;
+  padding: 20px 20px 32px;
+}
+
+.auth-hero__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--mawa-muted);
+  margin-bottom: 28px;
+  transition: color var(--transition-fast);
+}
+
+.auth-hero__back:hover {
+  color: var(--mawa-green);
+}
+
+.auth-hero__title {
+  font-family: var(--font-heading);
+  font-size: clamp(26px, 4vw, 34px);
+  font-weight: 700;
+  color: var(--mawa-green);
+  margin-bottom: 100px;
+}
+
+.auth-hero__subtitle {
+  font-size: 15px;
+  color: var(--mawa-muted);
+  margin-top: 6px;
+}

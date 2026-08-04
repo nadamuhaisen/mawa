@@ -1,0 +1,221 @@
+/* ============================================
+   About page — reuses the shared design tokens
+   from src/index.css (colors, radius, shadows).
+   ============================================ */
+
+.about-hero {
+  padding: 72px 0 56px;
+  background: linear-gradient(180deg, var(--color-beige-secondary) 0%, var(--color-bg-main) 100%);
+  text-align: center;
+}
+
+.about-hero__title {
+  font-size: clamp(32px, 5vw, 48px);
+  font-weight: 900;
+  color: var(--color-text-primary);
+  margin-bottom: 18px;
+}
+
+.about-hero__subtitle {
+  max-width: 640px;
+  margin: 0 auto;
+  font-size: clamp(15px, 2vw, 17px);
+  color: var(--color-text-secondary);
+  line-height: 1.9;
+}
+
+/* Vision / Mission */
+.about-split__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 28px;
+}
+
+.about-split__card {
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 36px 32px;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-medium), box-shadow var(--transition-medium);
+}
+
+.about-split__card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+}
+
+.about-split__card h2 {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--color-accent);
+  margin-bottom: 14px;
+}
+
+.about-split__card p {
+  font-size: 14.5px;
+  color: var(--color-text-secondary);
+  line-height: 1.9;
+}
+
+/* Values */
+.about-values {
+  background: var(--color-beige-secondary);
+}
+
+.about-values__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.about-value-card {
+  background: var(--color-card);
+  border-radius: var(--radius-lg);
+  padding: 30px 24px;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-medium), box-shadow var(--transition-medium);
+}
+
+.about-value-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
+}
+
+.about-value-card__icon {
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-beige-secondary);
+  color: var(--color-accent);
+}
+
+.about-value-card h3 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--color-text-primary);
+}
+
+.about-value-card p {
+  font-size: 13.5px;
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+}
+
+/* Why Mawa */
+.about-why__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+}
+
+.about-why-card {
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 26px 20px;
+  text-align: center;
+  transition: transform var(--transition-medium), box-shadow var(--transition-medium), border-color var(--transition-fast);
+}
+
+.about-why-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-accent);
+}
+
+.about-why-card__icon {
+  width: 46px;
+  height: 46px;
+  margin: 0 auto 14px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-beige-secondary);
+  color: var(--color-accent);
+}
+
+.about-why-card h3 {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.about-why-card p {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+/* Statistics */
+.about-stats {
+  background: var(--color-accent);
+}
+
+.about-stats__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  text-align: center;
+}
+
+.about-stat__value {
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 900;
+  color: #fff;
+  margin-bottom: 6px;
+}
+
+.about-stat__label {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* CTA */
+.about-cta {
+  padding: 72px 0;
+  text-align: center;
+  background: var(--color-bg-main);
+}
+
+.about-cta__inner h2 {
+  font-size: clamp(24px, 3.5vw, 32px);
+  font-weight: 800;
+  color: var(--color-text-primary);
+  margin-bottom: 12px;
+}
+
+.about-cta__inner p {
+  font-size: 15px;
+  color: var(--color-text-secondary);
+  margin-bottom: 28px;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .about-split__grid,
+  .about-why__grid,
+  .about-stats__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .about-values__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .about-split__grid,
+  .about-why__grid,
+  .about-stats__grid,
+  .about-values__grid {
+    grid-template-columns: 1fr;
+  }
+}

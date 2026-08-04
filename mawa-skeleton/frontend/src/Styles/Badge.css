@@ -1,0 +1,24 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 14px;
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: var(--radius-full);
+  backdrop-filter: blur(4px);
+}
+
+.badge--sale {
+  background: rgba(76, 175, 80, 0.92);
+  color: #fff;
+}
+
+.badge--rent {
+  background: rgba(176, 137, 104, 0.92);
+  color: #fff;
+}
+
+.badge--neutral {
+  background: rgba(61, 61, 61, 0.85);
+  color: #fff;
+}

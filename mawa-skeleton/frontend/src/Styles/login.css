@@ -1,0 +1,16 @@
+/* Login-specific overrides go here. The shared card/page chrome
+   (.auth-page, .auth-card, .auth-card__*) lives in
+   components/AuthCard.css so Login and Signup never drift apart.
+
+   Everything below still pulls its colors from the SAME variables
+   as the rest of the site (index.css), so it can never fall out of
+   sync with Landing/Signup/Dashboard — it just adds a couple of
+   Login-only touches on top of the shared card. */
+
+.auth-card {
+  border-top: 4px solid var(--mawa-green);
+}
+
+.auth-card__heading {
+  color: var(--mawa-green);
+}

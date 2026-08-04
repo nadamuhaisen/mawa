@@ -1,0 +1,40 @@
+.why-mawa__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+  
+  .why-mawa__card {
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 36px 28px;
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--transition-medium), box-shadow var(--transition-medium);
+  }
+  
+  .why-mawa__card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
+  }
+  
+  .why-mawa__icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-beige-secondary);
+    color: var(--color-accent);
+  }
+  
+  .why-mawa__card h3 { font-size: 18px; font-weight: 700; margin-bottom: 10px; }
+  .why-mawa__card p { font-size: 14px; color: var(--color-text-secondary); line-height: 1.7; }
+  
+  @media (max-width: 860px) {
+    .why-mawa__grid { grid-template-columns: 1fr; }
+  }
+  

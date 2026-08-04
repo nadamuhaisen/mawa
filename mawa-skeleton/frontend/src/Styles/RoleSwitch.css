@@ -1,0 +1,27 @@
+.role-switch {
+    display: flex;
+    border-bottom: 1px solid var(--mawa-line);
+  }
+  
+  .role-switch__tab {
+    flex: 1;
+    text-align: center;
+    padding: 12px 0;
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--mawa-muted);
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: color var(--transition-fast), border-color var(--transition-fast);
+  }
+  
+  .role-switch__tab.is-active {
+    color: var(--mawa-green);
+    font-weight: 700;
+    border-bottom-color: var(--mawa-green);
+  }
+  
+  .role-switch__tab:hover:not(.is-active) {
+    color: var(--mawa-ink);
+  }
+  

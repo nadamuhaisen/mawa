@@ -1,0 +1,34 @@
+.auth-mode-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 22px;
+  }
+  
+  .auth-mode-tabs__tab {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 0;
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    font-weight: 600;
+    border: 1px solid var(--mawa-line);
+    color: var(--mawa-muted);
+    background: transparent;
+    transition: all var(--transition-fast);
+  }
+  
+  .auth-mode-tabs__tab:hover:not(.is-active) {
+    border-color: var(--mawa-green);
+    color: var(--mawa-green);
+  }
+  
+  .auth-mode-tabs__tab.is-active {
+    background: var(--mawa-green);
+    border-color: var(--mawa-green);
+    color: #fff;
+    box-shadow: var(--shadow-sm);
+  }
+  

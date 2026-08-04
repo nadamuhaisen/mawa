@@ -1,9 +1,192 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* ============================================
+   مأوى - Global Design System
+   ============================================ */
+
+:root {
+  /* Colors */
+  --color-bg-main: #f8f5f0;
+  --color-beige-primary: #d8c3a5;
+  --color-beige-secondary: #eadbc8;
+  --color-card: #ffffff;
+  --color-border: #e6ded3;
+  --color-text-primary: #3d3d3d;
+  --color-text-secondary: #777777;
+  --color-accent: #b08968;
+  --color-accent-dark: #96714f;
+  --color-success: #4caf50;
+  --color-error: #e57373;
+
+  /* Typography */
+  --font-arabic: "Cairo", sans-serif;
+  /* Radius */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+  --radius-full: 999px;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(61, 61, 61, 0.06);
+  --shadow-md: 0 8px 24px rgba(61, 61, 61, 0.08);
+  --shadow-lg: 0 16px 40px rgba(61, 61, 61, 0.12);
+
+  /* Spacing helpers */
+  --container-width: 1240px;
+
+  /* Transitions */
+  --transition-fast: 0.18s ease;
+  --transition-medium: 0.3s ease;
+
+  /* ============================================
+     Auth / Dashboard theme
+     Used by Login, Signup, RenterDashboard, OwnerDashboard
+     and the components that support them (Sidebar, StatCard,
+     RoleSwitch, ZigzagDivider). Kept separate from the main
+     landing palette above so the marketing pages are untouched.
+     ============================================ */
+  --mawa-green: #7a5c3e;
+  --mawa-green-light: #f0e9de;
+  --mawa-ink: #1a1a18;
+  --mawa-bone: #f7f3e8;
+  --mawa-red: #c1272d;
+  --mawa-red-light: #fbe9ea;
+  --mawa-gold: #b8862f;
+  --mawa-gold-light: #f7ecd8;
+  --mawa-line: #ddd6bd;
+  --mawa-muted: #4a473f;
+  --mawa-muted-2: #9a9483;
+  --font-heading: "Cairo", var(--font-arabic);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
 
 body {
-  font-family: 'Tajawal', sans-serif;
-  background-color: #e9e4d4;
-  color: #1A1A18;
+  font-family: var(--font-arabic);
+  background-color: var(--color-bg-main);
+  color: var(--color-text-primary);
+  direction: rtl;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+input,
+select,
+textarea {
+  font-family: inherit;
+  outline: none;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.section {
+  padding: 72px 0;
+}
+
+.section-heading {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.section-heading h2 {
+  font-size: clamp(28px, 4vw, 38px);
+  font-weight: 800;
+  color: var(--color-text-primary);
+  margin-bottom: 10px;
+}
+
+.section-heading p {
+  font-size: 16px;
+  color: var(--color-text-secondary);
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 48px 0;
+  }
+}
+
+/* ============================================
+   Lightweight entrance animations — additive utility
+   classes used across the landing page sections.
+   Respects users who prefer reduced motion.
+   ============================================ */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.reveal-up {
+  animation: fadeInUp 0.7s ease both;
+}
+
+.reveal-fade {
+  animation: fadeIn 0.8s ease both;
+}
+
+.reveal-delay-1 {
+  animation-delay: 0.1s;
+}
+.reveal-delay-2 {
+  animation-delay: 0.2s;
+}
+.reveal-delay-3 {
+  animation-delay: 0.3s;
+}
+.reveal-delay-4 {
+  animation-delay: 0.4s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-up,
+  .reveal-fade {
+    animation: none;
+  }
 }

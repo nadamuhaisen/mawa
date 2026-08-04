@@ -1,0 +1,31 @@
+.stat-card {
+background:white;
+border:1px solid var(--mawa-line);
+border-radius:20px;
+padding:22px;
+transition:0.2s;
+}
+.stat-card:hover {
+transform:translateY(-4px);
+box-shadow:0 8px 20px rgba(0, 0, 0, 0.08);
+}
+.stat-card__label {
+font-size:14px;
+color:var(--mawa-muted);
+margin-bottom:12px;
+}
+.stat-card__value {
+font-size:32px;
+font-weight:800;
+font-family:var(--font-heading);
+}
+.stat-card__value--green {
+color:var(--mawa-green);
+}
+.stat-card__value--gold {
+color:var(--mawa-gold);
+}
+.stat-card__value--muted {
+color:var(--mawa-muted);
+
+}

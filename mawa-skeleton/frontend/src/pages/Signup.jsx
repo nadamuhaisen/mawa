@@ -1,101 +1,241 @@
-import {useState} from "react";
-import {useNavigate} from "react-router-dom";// مكتبة جاهزة  بتخلينا نوجه المستخدم من صفحة ل صفحة حسب دوره
-import {signupRequest} from "../services/authService.js";// بترسل البيانات  للسيرفر "الباك"
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { UserPlus } from "lucide-react";
+
+import AuthHero from "../components/AuthHero.jsx";
+import AuthCard from "../components/AuthCard.jsx";
+import RoleSwitch from "../components/RoleSwitch.jsx";
+import Button from "../components/Button.jsx";
+
+import { signupRequest } from "../services/authService.js";
+
+//import "../pages/Signup.css";
 
 const TOTAL_STEPS = 3;
 
-export default function Signup() {
-    //جمعت الحقول ب state واحد عشان اسهل عملية التحديث
-    const [form , setForm] = useState({
-        name: "",
-        phone: "",
-        password: "",
-        confirmPassword: "",
-        role: "renter"
-    });
-    const [step , setStep] = useState(1);
-    const [error , setError] = useState("");
-    const [loading , setLoading] = useState(false);
+const initialForm = {
+  name: "",
+  phone: "",
+  password: "",
+  confirmPassword: "",
+  role: "renter",
+};
 
-    const navigate = useNavigate();
+function Signup() {
+  const navigate = useNavigate();
 
-    function updateForm(fieldName , value){
-        // عشان نحدث الحقول بدون ما نمسح القيم القديمة
-        setForm(prevForm =>({
-            ...prevForm,
-            [fieldName] : value// فقط بنبدل الحقل اللي بدنا نحدثه
-        }));
-    }
-    async function handelNextStep(e){
-        e.preventDefault();
+  const [form, setForm] = useState(initialForm);
+  const [step, setStep] = useState(1);
 
-        if(step < TOTAL_STEPS){
-            setStep(step +1);
-            return;
-        }
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-          if (form.password !== form.confirmPassword) {
-              setError("كلمتا المرور مش متطابقتين");
-                  return; 
+  function updateForm(field, value) {
+    setForm((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
   }
 
+  function handleNextStep(e) {
+    e.preventDefault();
 
-        setError("");
-        setLoading(true);
-       
-        try{
-            const user = await signupRequest(form);  
-            navigate(`/dashboard/${user.role}`);
-        }catch(err){
-            setError("حدث خطأ , تأكد ان رقم الهاتف غير مسجل مسبقاً")
-        }
-        finally{
-            setLoading(false);
-        }
+    setError("");
+
+    // الانتقال بين الخطوات
+    if (step < TOTAL_STEPS) {
+      setStep((prev) => prev + 1);
+
+      return;
     }
-    function handelBackStep(){
-        if(step > 1){
-            setStep(step -1);
-        }
+
+    // التأكد من تطابق كلمات المرور
+    if (form.password !== form.confirmPassword) {
+      setError("كلمتا المرور غير متطابقتين");
+
+      return;
     }
-       
-    return (
-         <form onSubmit={handelNextStep}>
-      <p>الخطوة {step} من {TOTAL_STEPS}</p>
 
-      {step === 1 && (
-        <>
-          <input value={form.name} onChange={(e) => updateForm('name', e.target.value)} placeholder="الاسم الكامل" />
-          <input value={form.phone} onChange={(e) => updateForm('phone', e.target.value)} placeholder="رقم الهاتف" />
-        </>
-      )}
+    handleSignup();
+  }
 
-      {step === 2 && (
-        <>
-          <input value={form.password} onChange={(e) => updateForm('password', e.target.value)} type="password" placeholder="كلمة المرور" />
-          <input value={form.confirmPassword} onChange={(e) => updateForm('confirmPassword', e.target.value)} type="password" placeholder="تأكيد كلمة المرور" />
-        </>
-      )}
+  async function handleSignup() {
+    setLoading(true);
 
-{step === 3 && (
-  <div>
-    <p>أنا:</p>
-    <button type="button" onClick={() => updateForm('role', 'renter')}>
-      بدوّر على مأوى (مستأجر)
-    </button>
-    <button type="button" onClick={() => updateForm('role', 'owner')}>
-      عندي عقار (مالك)
-    </button>
-    <p>اخترتي: {form.role === 'renter' ? 'مستأجر' : 'مالك عقار'}</p>
-  </div>
-)}
-      {error && <p>{error}</p>}
+    try {
+      const user = await signupRequest(form);
 
-      {step > 1 && <button type="button" onClick={handelBackStep}>رجوع</button>}
+      navigate(`/${user.role}/dashboard`);
 
-      <button type="submit" disabled={loading}>
-        {step < TOTAL_STEPS ? 'التالي' : loading ? 'جاري الإنشاء...' : 'إنشاء الحساب'}
-      </button>
-    </form>
-  )
+    } catch (err) {
+      console.log("ERROR:", err.response?.data);
+
+      setError(
+        err.response?.data?.message || "حدث خطأ"
+      );
+
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  function handleBackStep() {
+    if (step > 1) {
+      setStep((prev) => prev - 1);
+    }
+  }
+
+  return (
+    <div className="auth-page">
+
+      <AuthHero
+        title="انضم إلى مأوى"
+        subtitle="أنشئ حسابك كمستأجر أو مالك عقار خلال دقيقة"
+      />
+
+      <div className="auth-page__stage">
+
+        <AuthCard
+          heading="إنشاء الحساب"
+          tagline="أنشئ حساباً جديداً للوصول إلى خدمات مأوى"
+          mode="signup"
+        >
+
+          <form
+            className="auth-card__form"
+            onSubmit={handleNextStep}
+          >
+
+            <p className="auth-card__step">
+              الخطوة {step} من {TOTAL_STEPS}
+            </p>
+
+            {step === 1 && (
+              <>
+                <label className="auth-card__label">
+                  الاسم الكامل
+                </label>
+
+                <input
+                  className="auth-card__input"
+                  placeholder="مثال: محمد يوسف"
+                  value={form.name}
+                  onChange={(e) =>
+                    updateForm("name", e.target.value)
+                  }
+                />
+
+                <label className="auth-card__label">
+                  رقم الهاتف
+                </label>
+
+                <input
+                  className="auth-card__input"
+                  placeholder="059XXXXXXX"
+                  value={form.phone}
+                  onChange={(e) =>
+                    updateForm("phone", e.target.value)
+                  }
+                />
+              </>
+            )}
+
+            {step === 2 && (
+              <>
+                <label className="auth-card__label">
+                  كلمة المرور
+                </label>
+
+                <input
+                  type="password"
+                  className="auth-card__input"
+                  placeholder="••••••••"
+                  value={form.password}
+                  onChange={(e) =>
+                    updateForm("password", e.target.value)
+                  }
+                />
+
+                <label className="auth-card__label">
+                  تأكيد كلمة المرور
+                </label>
+
+                <input
+                  type="password"
+                  className="auth-card__input"
+                  placeholder="••••••••"
+                  value={form.confirmPassword}
+                  onChange={(e) =>
+                    updateForm(
+                      "confirmPassword",
+                      e.target.value
+                    )
+                  }
+                />
+              </>
+            )}
+
+            {step === 3 && (
+              <div className="auth-card__role">
+
+                <span className="auth-card__role-label">
+                  إنشاء حساب كـ
+                </span>
+
+                <RoleSwitch
+                  value={form.role}
+                  onChange={(value) =>
+                    updateForm("role", value)
+                  }
+                />
+
+                <p>
+                  اخترت: {form.role === "renter" ? "مستأجر" : "مالك عقار"}
+                </p>
+
+              </div>
+            )}
+
+            {error && (
+              <p className="auth-card__error">
+                {error}
+              </p>
+            )}
+
+            <div className="auth-card__actions">
+
+              {step > 1 && (
+                <Button
+                  type="button"
+                  variant="secondary"
+                  onClick={handleBackStep}
+                >
+                  رجوع
+                </Button>
+              )}
+
+              <Button
+                type="submit"
+                variant="primary"
+                size="lg"
+                fullWidth
+                icon={<UserPlus size={17} />}
+                disabled={loading}
+              >
+                {
+                  step < TOTAL_STEPS
+                    ? "التالي"
+                    : loading
+                      ? "جارٍ الإنشاء..."
+                      : "إنشاء الحساب"
+                }
+              </Button>
+            </div>
+          </form>
+        </AuthCard>
+      </div>
+    </div>
+  );
 }
+
+export default Signup;
